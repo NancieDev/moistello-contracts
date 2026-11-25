@@ -24,6 +24,7 @@ ignore = [
     "RUSTSEC-2026-0574", # heapless: FindMutView::pop after mutating could lead to use after free
     "RUSTSEC-2026-0579", # heapless: Deque from TryFrom implementation was wrong when full
     "RUSTSEC-2024-0436", # paste: no longer maintained (transitive dependency)
+    "RUSTSEC-2026-0576", # heapless: IndexMap::truncate did not rebuild indices, leading to inconsistent state and memory corruption (transitive dependency)
 ]
 
 # ── Licenses ──────────────────────────────────────────────────────────────────
