@@ -25,6 +25,15 @@ ignore = [
     "RUSTSEC-2026-0579", # heapless: Deque from TryFrom implementation was wrong when full
     "RUSTSEC-2024-0436", # paste: no longer maintained (transitive dependency)
     "RUSTSEC-2026-0576", # heapless: IndexMap::truncate did not rebuild indices, leading to inconsistent state and memory corruption (transitive dependency)
+    # RUSTSEC-2026-0582 — heapless: IndexMap::insert broken invariant on u16::MAX-sized maps.
+    # Risk accepted: triggering this requires the map to be filled to exactly u16::MAX entries
+    # (65 535 elements) AND the final inserted key to hash to u16::MAX — an astronomically
+    # unlikely combination in Soroban contract execution where map sizes are bounded by gas.
+    # No upgrade path exists in the heapless release line at this time; the advisory is
+    # classified "unsound" (not "vulnerability") and carries no known exploit.
+    # Re-evaluate when heapless ≥ 0.8.x ships a fix or a viable replacement is available.
+    "RUSTSEC-2026-0582", # heapless: IndexMap::insert broken invariant on u16::MAX-element maps
+    "RUSTSEC-2026-0486", # rustix: xattr functions mark unwritten bytes as initialized on zero-length buffer (transitive dependency)
 ]
 
 # ── Licenses ──────────────────────────────────────────────────────────────────

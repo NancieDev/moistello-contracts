@@ -1,4 +1,5 @@
 #![cfg_attr(not(test), no_std)]
+#![cfg_attr(not(test), deny(dead_code))]
 // Deny unused imports at the crate level so stale imports (e.g. a previously
 // re-exported `load_round_details` from payout.rs) are caught at compile time
 // rather than silently emitting warnings that can be overlooked.

@@ -95,3 +95,19 @@
 **Mitigation**: Risk accepted with explicit advisory ignore in deny.toml. Monitor soroban-sdk releases for a heapless upgrade that includes the fix.
 
 **Reference**: https://rustsec.org/advisories/RUSTSEC-2026-0576
+
+---
+
+## RUSTSEC-2026-0486 - Rustix xattr Functions Mark Unwritten Bytes as Initialized
+
+**Package**: rustix (transitive dependency)
+
+**Severity**: Unsound
+
+**Description**: The extended-attribute functions in `rustix::fs` (`getxattr`, `lgetxattr`, `fgetxattr`, `listxattr`, `llistxattr`, `flistxattr`) write into a `Buffer` and mark as many bytes initialized as the syscall reported. When given a zero-length buffer, the OS treats the call as a size query and writes nothing, but rustix still advanced the vector's length past its capacity over memory that was never written — undefined behaviour reachable from safe code. Fixed in rustix 1.1.6.
+
+**Status**: Transitive dependency pulled in via the build toolchain (tempfile → rustix). Cannot be directly upgraded without soroban-sdk or its toolchain dependencies releasing a compatible update.
+
+**Mitigation**: Risk accepted with explicit advisory ignore in deny.toml. Monitor soroban-sdk releases for a rustix ≥ 1.1.6 bump.
+
+**Reference**: https://rustsec.org/advisories/RUSTSEC-2026-0486
